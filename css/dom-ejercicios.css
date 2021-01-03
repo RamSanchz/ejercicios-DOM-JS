@@ -1,0 +1,466 @@
+/******************* Reset CSS *****************/
+:root {
+  --main-font: sans-serif;
+  --font-size: 16px;
+  --main-color: #f7df1e;
+  --second-color: #222222;
+  --main-modal-color: rgba(247, 222, 30, 0.85);
+  --second-modal-color: rgba(34, 34, 34, 0.85);
+  --container-width: 1200px;
+}
+
+/***El reseteo del HTML es para que ya cargue estos valores por defecto y no los de el navegador**/
+html {
+  box-sizing: border-box; /**** tamaño de la caja*/
+  font-family: var(--main-font);
+  font-size: var(--font-size);
+  scroll-behavior: smooth; /** es para que le demos la transicion no subita  a la hora de ir de una seccion a otra es la que va a funcionar como transicion al darle click al enlace**/
+}
+
+/*Hacemos que todos los elementos del HTML hereden el box-sizing*/
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+/*quitamos el margen que traen por defecto todos los navegadores*/
+body {
+  margin: 0;
+  overflow-x: hidden; /*para que todo lo que se desborde del horizontal se esconda y no se genere la barra de desplazamiento*/
+}
+/*Para que las imagenes se adapten al 100% de su capacidad y sean responsive*/
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/**************** Menu de Hamburguesa ***************/
+.header {
+  position: sticky; /*cuando el header llegue a 0 en top se  va a comportar como si estuviera fija (como un fixed)*/
+  z-index: 997;
+  top: 0; /*se debe indicar cuando se activara el sticky*/
+  padding: 1rem;
+  background-color: var(--main-color);
+  color: var(--second-color);
+}
+
+.header h1 {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.section {
+  padding: 4rem 2em 2em 2em;
+  margin: auto;
+  width: 100%;
+  max-width: var(--container-width);
+  min-height: 100vh;
+  text-align: center;
+}
+
+.panel {
+  position: fixed;
+  z-index: 998; /*se puso un z-index menor al del boton para que el boton quede arriba y no se pierda la interactividad*/
+  top: 0; /*esto permite alinearse a una dimension algo*/
+  bottom: 0; /*en este caso el panel se pegara al top 0 y botom 0 por lo tanto crecera a lo alto de la pantalla*/
+  right: 0;
+  overflow-y: auto; /*sirve para hacer algo con el contenido que se desborda*/
+  left: 0; /*tocara todos los margenes y se agrandara a la pantalla*/
+  width: 100%;
+  background-color: var(--second-modal-color);
+  transition: transform 0.3s ease;
+  /*De arriba*/
+  transform: translate(
+    0,
+    -150%
+  ); /*traslate mueve el panel(eje x, ejey) y al estar en y a -100% lo desaparecio hasta arriba al menu*/
+}
+
+.panel.is-active {
+  transform: translate(0, 0);
+}
+
+.panel-btn {
+  position: fixed; /*lo dejamos de manera fija a 1vh de botto y 1vh right*/
+  z-index: 999; /*se aplica una z-index alta para que no se le sobreponga nada arriba del boton y todo el contenido extra que se agregue quede debajo*/
+  bottom: 1vh;
+  right: 1vh;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  padding: 0;
+  display: flex; /*se aplica flex para que se centren correctamente las lineas del menu*/
+  justify-content: center;
+  align-items: center;
+  background-color: var(--main-color);
+}
+
+.menu {
+  width: inherit; /*menu heredara el ancho de su padre que en este caso es el panel*/
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly; /*espacio proporcional entre elementos y orillas*/
+  align-items: center;
+  text-align: center;
+}
+
+.menu a {
+  padding: 1.2rem;
+  width: inherit;
+  display: block;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: var(--main-color);
+  transition: all 0.3s ease;
+}
+
+.menu a:hover {
+  font-weight: bold;
+  color: var(--second-color);
+  background-color: var(--main-color);
+}
+
+/****************** Seccion Eventos del Teclado ******/
+.shortcuts {
+  display: inline-block;
+  background-color: var(--main-modal-color);
+  padding: 0.5em;
+}
+
+.shortcuts h3 {
+  color: var(--second-color);
+  font-size: 1.3em;
+}
+
+.shortcuts ul li {
+  text-align: left;
+  font-size: 1em;
+  color: var(--second-color);
+  font-weight: bold;
+  padding: 5px;
+}
+
+.stage {
+  margin-top: 1.5em;
+  display: flex;
+  min-height: 50vh;
+  background-color: var(--second-color);
+  border: 3px solid var(--main-color);
+}
+
+.ball {
+  margin: auto;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background-color: var(--main-color);
+}
+
+/************** ScrollTopButton ***********/
+.scroll-top-btn {
+  position: fixed;
+  z-index: 999;
+  bottom: 1vh;
+  right: calc(4.25rem + 1vh); /*separa 4.25rem + 1 vh del boton de haburguesa*/
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  font-size: 2rem;
+  font-weight: bold;
+  background-color: var(--main-color);
+  cursor: pointer;
+  outline: 0;
+  border: 0;
+  transition: all 0.3s ease-out;
+}
+
+.scroll-top-btn:hover {
+  background-color: var(--second-color);
+  color: var(--main-color);
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+/************** DarkThemeButton ***********/
+
+.dark-theme-btn {
+  position: fixed;
+  z-index: 999;
+  bottom: 1vh;
+  left: 1vh; /*separa 4.25rem + 1 vh del boton de haburguesa*/
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  font-size: 2rem;
+  font-weight: bold;
+  background-color: var(--main-color);
+  cursor: pointer;
+  outline: 0;
+  border: 0;
+  transition: all 0.3s ease-out;
+}
+.dark-theme-btn:hover {
+  background-color: var(--second-color);
+  color: var(--main-color);
+}
+.dark-mode {
+  background-color: var(--second-color);
+  color: var(--main-color);
+}
+
+/************   NETWORK STATUS *******************/
+
+.online,
+.offline {
+  position: sticky;
+  z-index: 1000;
+  top: 0;
+  padding: 1rem;
+  font-size: 1.5rem;
+  text-align: center;
+  font-weight: bold;
+  background-color: #1b5e20;
+  color: #ffffff;
+}
+
+.offline {
+  background-color: #b71c1c;
+}
+
+/*************** SEARCHFILTERS **************/
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.card {
+  background-color: var(--second-color);
+  color: var(--main-color);
+  transition: all 0.3s ease-out;
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+}
+
+.card figcaption {
+  padding: 1rem;
+}
+
+.filter {
+  /*display: none;*/
+  visibility: hidden;
+  opacity: 0;
+  order: 1;
+}
+
+/**¨************** RESPONSIBE SLIDER  ****************/
+
+.slider {
+  position: relative;
+  width: 80%;
+  margin: 1rem auto;
+  text-align: center;
+}
+
+.slider-slides {
+  position: relative;
+  height: 400px;
+}
+
+.slider-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0; /* es para volverlo opaco pero continua con la interaccion */
+  visibility: hidden; /* desaparece el objeto o elemento y la interccion */
+  transition: opacity 1s ease;
+}
+
+.slider-slide img {
+  height: inherit;
+  width: inherit;
+  object-fit: cover; /*object-fit permite que una imagen se adapte a ciertas medidas  */
+  object-position: 50% 0%; /* object position toma un punto de la imagen como el centro y de ahi comienza a mostrarla (valor enn x, valor en y) */
+}
+
+.slider-slide.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.slider-btns {
+  position: absolute;
+  width: 100%; /* se le dice que tome todo el espacio para que se puedan abrir los botones y se pongan juntos */
+  top: 40%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.slider a {
+  display: block;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  border: thin solid #000;
+  text-decoration: none;
+  background-color: #ffffff;
+  color: #000;
+  transition: all 0.3s ease;
+}
+
+.slider a:hover {
+  color: #4d4d4d;
+}
+
+/***************** SCROLL SPY  ***************/
+@media screen and (min-width: 1024px) {
+  body {
+    display: grid;
+    grid-template-columns: 80% 20%;
+    grid-template-rows: 4rem auto;
+    grid-template-areas:
+      "header header"
+      "main  panel"; /* grid puedes definir el area con letras asi es como se definen las filas y columnas con las etiequetas de las clases estos nombres serviran como refrencia para ubicar cada parte del html */
+  }
+  main {
+    grid-area: main;
+  }
+  .header {
+    grid-area: header;
+  }
+  .panel {
+    grid-area: panel;
+    align-self: start;
+    position: sticky;
+    top: 4rem;
+    justify-content: flex-start;
+    background-color: var(--second-color);
+    transform: translate(0, 0);
+    opacity: 1;
+    visibility: visible;
+  }
+  .panel-btn {
+    display: none;
+  }
+  .menu {
+    justify-content: start;
+    text-align: right;
+  }
+  .menu a {
+    font-size: 1rem;
+    padding: 0.75rem;
+    /* font-weight: 600; */
+  }
+  .menu a:hover,
+  .menu a.active {
+    color: var(--second-color);
+    background-color: var(--main-color);
+  }
+  .scroll-top-btn {
+    right: initial;
+    left: calc(4.25rem + 1vw);
+  }
+}
+
+/************ Video **************/
+.video {
+  height: 500px;
+  width: 600px;
+}
+
+/*************** ContactForm Validations  ************/
+
+.contact-form {
+  --form-ok-color: #4caf50;
+  --form-error-color: #f44336;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+
+.contact-form > * {
+  /* >* significa que todos los hijos directos de .contact-form recibiran este formato*/
+  padding: 0.5rem;
+  margin: 1rem auto;
+  display: block;
+  width: 100%;
+}
+
+.contact-form textarea {
+  resize: none; /* los text area por defecto se pueden redimencionar desde el viweport  esto es para que ya no se pueda y queden fijos */
+}
+
+.contact-form legend,
+.contact-form-response {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.contact-form input,
+.contact-form textarea {
+  font-size: 1rem;
+  font-family: sans-serif;
+}
+
+.contact-form input[type="submit"] {
+  /* de este modo hacemos una seleccion por tipo de atributo especifico en css */
+  width: 50%;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.contact-form *::placeholder {
+  /* a todos los elementos que tengan el atributo placeholder */
+  color: #696980;
+}
+
+.contact-form [required]:valid {
+  /* todos lod hijos que tengan el atributo requied y que el contenido sea valido */
+  border: thin solid var(--form-ok-color);
+}
+
+.contact-form [required]:invalid {
+  /* valid e invalid son pseudocodigos de css que actuan deacuerdo a contenido escrito dentro de los input este contenido debe de cumplir con el atributo pattern de html */
+  border: thin solid var(--form-error-color);
+}
+
+.contact-form-error {
+  margin-top: -1rem;
+  font-size: 80%;
+  background-color: var(--form-error-color);
+  color: #ffffff;
+  transition: all 800ms ease;
+}
+
+.contact-form-error.is-active {
+  display: block;
+  animation: show-message 1s 1 normal 0s ease-in-out both;
+  /* crearemos una animaciond de nombre show-message la cual durara 1s solo se repetira 1 vez a velocidad normal con 0s de retraso efecto ease-in-out y esta cuando finalice conservara los estilos con los que termina both */
+}
+
+.none {
+  display: none;
+}
+/* creamos la animacion */
+@keyframes show-message{
+  0%{
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  100%{
+    visibility: visible;
+    opacity: 1;
+  }
+}
